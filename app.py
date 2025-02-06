@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from io import StringIO
 from urllib.parse import quote
+from feedback import SheetManager
 
 # CSS 스타일 추가 (폰트, 정렬 등)
 st.markdown("""
@@ -31,12 +32,12 @@ st.markdown("""
 st.markdown("<div class='title'>국회앞 식당정보 🍽️</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>맛있는 한 끼, 즐거운 하루 😊</div>", unsafe_allow_html=True)
 
-# 구글 시트 기본 URL 구성
+# 구글 시트 URL 구성 부분 수정
 base_url = "https://docs.google.com/spreadsheets/d/"
-sheet_id = "12xZfClkzATbByAZDYtM5KV2THzVvg2cV3KvVAZ621PQ"  # 실제 시트 ID를 입력하세요.
-# 만약 시트ID에 한글 등 비ASCII 문자가 있다면, 퍼센트 인코딩 적용
+sheet_id = "12xZfClkzATbByAZDYtM5KV2THzVvg2cV3KvVAZ621PQ"
 encoded_sheet_id = quote(sheet_id, safe='')
-sheet_url = f"{base_url}{encoded_sheet_id}/export?format=csv"
+restaurants_url = f"{base_url}{encoded_sheet_id}/export?format=csv"
+feedback_url = f"{base_url}{encoded_sheet_id}/export?format=csv&gid=406210046"  # gid=1은 두 번째 시트의 ID입니다
 
 @st.cache_data(show_spinner=False)
 def load_data(url):
@@ -51,9 +52,9 @@ def load_data(url):
     except Exception as e:
         st.error("데이터를 불러오는 데 실패했습니다.")
         st.error(e)
-        return pd.DataFrame()  # 빈 데이터프레임 반환
+        return pd.DataFrame()
 
-df = load_data(sheet_url)
+df = load_data(restaurants_url)
 
 if df.empty:
     st.stop()  # 데이터가 없으면 앱 실행 중지
@@ -76,6 +77,44 @@ if search_term:
     st.dataframe(filtered_df)
 else:
     st.write("")
+
+# 피드백 섹션 추가 (dataframe 표시 후에 배치)
+st.markdown("---")
+st.markdown("### 📝 피드백을 남겨주세요!")
+
+# SheetManager 인스턴스 생성
+sheet_manager = SheetManager()
+
+with st.form("feedback_form"):
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        rating = st.slider("전반적인 만족도", 1, 5, 3)
+        user_name = st.text_input("이름 (선택사항)")
+    
+    with col2:
+        feedback_type = st.selectbox(
+            "피드백 유형",
+            ["일반 의견", "새로운 식당 제보", "정보 수정 요청", "기능 개선 제안"]
+        )
+    
+    feedback_text = st.text_area("상세 의견을 적어주세요")
+    
+    submitted = st.form_submit_button("피드백 제출")
+    
+    if submitted and feedback_text:
+        success, message = sheet_manager.submit_feedback(
+            user_name,
+            rating,
+            feedback_type,
+            feedback_text
+        )
+        if success:
+            st.success(message)
+        else:
+            st.error(message)
+    elif submitted:
+        st.warning("피드백 내용을 입력해주세요.")
 
 # 푸터 추가 (푸터 메시지는 영어, 이모지 추가)
 st.markdown("---")
