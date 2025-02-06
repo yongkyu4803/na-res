@@ -4,6 +4,7 @@ import requests
 from io import StringIO
 from urllib.parse import quote
 from feedback import SheetManager
+import time
 
 # CSS 스타일 추가 (폰트, 정렬 등)
 st.markdown("""
@@ -111,8 +112,8 @@ with st.form("feedback_form", clear_on_submit=True):
         )
         if success:
             st.success(message)
-            # 페이지 새로고침
-            st.experimental_rerun()
+            time.sleep(3)  # 3초 동안 성공 메시지 표시
+            st.rerun()
         else:
             st.error(message)
     elif submitted:
