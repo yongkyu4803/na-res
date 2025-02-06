@@ -1,15 +1,20 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import streamlit as st
 
 class SheetManager:
     def __init__(self):
         try:
             self.scopes = ['https://www.googleapis.com/auth/spreadsheets']
-            self.credentials = Credentials.from_service_account_file(
-                'service-account-key.json',
+            
+            # Streamlit Cloud에서 실행될 때는 secrets에서 인증 정보를 가져옴
+            credentials_dict = st.secrets["gcp_service_account"]
+            self.credentials = Credentials.from_service_account_info(
+                credentials_dict,
                 scopes=self.scopes
             )
+            
             self.client = gspread.authorize(self.credentials)
             self.sheet_id = "12xZfClkzATbByAZDYtM5KV2THzVvg2cV3KvVAZ621PQ"
         except Exception as e:
@@ -29,5 +34,5 @@ class SheetManager:
             sheet.append_row(row_data)
             return True, "피드백이 성공적으로 제출되었습니다!"
         except Exception as e:
-            print(f"피드백 제출 중 오류 발생: {str(e)}")  # 서버 로그에 오류 출력
+            print(f"피드백 제출 중 오류 발생: {str(e)}")
             return False, f"오류 발생: {str(e)}" 
