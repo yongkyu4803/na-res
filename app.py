@@ -78,14 +78,14 @@ if search_term:
 else:
     st.write("")
 
-# 피드백 섹션 추가 (dataframe 표시 후에 배치)
+# 피드백 섹션
 st.markdown("---")
 st.markdown("### 📝 피드백을 남겨주세요!")
 
 # SheetManager 인스턴스 생성
 sheet_manager = SheetManager()
 
-with st.form("feedback_form"):
+with st.form("feedback_form", clear_on_submit=True):
     col1, col2 = st.columns(2)
     
     with col1:
@@ -111,6 +111,8 @@ with st.form("feedback_form"):
         )
         if success:
             st.success(message)
+            # 페이지 새로고침
+            st.experimental_rerun()
         else:
             st.error(message)
     elif submitted:
