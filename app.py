@@ -74,18 +74,25 @@ if df.empty:
 
 # 데이터프레임을 HTML 형식으로 변환하여 링크 추가
 if not df.empty:
-    # 상호명과 장소에 링크 추가
-    df['상호명'] = df.apply(
-        lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if pd.notna(row['링크']) and row['링크'] else row['상호명'],
-        axis=1
-    )
-    df['장소'] = df.apply(
-        lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if pd.notna(row['링크']) and row['링크'] else row['장소'],
-        axis=1
-    )
+    # 열 이름 공백 제거
+    df.columns = df.columns.str.strip()
     
-    # '링크' 열을 제외하고 표시
-    display_columns = [col for col in df.columns if col != '링크']
+    # 상호명과 장소에 링크 추가
+    if '링크' in df.columns:
+        df['상호명'] = df.apply(
+            lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if pd.notna(row['링크']) and row['링크'] else row['상호명'],
+            axis=1
+        )
+        df['장소'] = df.apply(
+            lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if pd.notna(row['링크']) and row['링크'] else row['장소'],
+            axis=1
+        )
+        
+        # '링크' 열을 제외하고 표시
+        display_columns = [col for col in df.columns if col != '링크']
+    else:
+        display_columns = df.columns.tolist()
+    
     st.markdown(df[display_columns].to_html(escape=False, index=False), unsafe_allow_html=True)
 
 # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
