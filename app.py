@@ -28,15 +28,23 @@ st.markdown("""
     }
     /* 테이블 스타일 추가 */
     table {
-        font-size: 0.8rem;  /* 테이블 내용 글자 크기를 0.9rem으로 변경 */
+        font-size: 0.8rem !important;  /* !important 추가 */
     }
     th {
-        font-size: 1em;  /* 헤더는 그대로 유지 */
-        text-align: left;  /* 헤더 왼쪽 정렬 */
+        font-size: 0.9em !important;  /* !important 추가 */
+        text-align: left !important;  /* !important 추가 */
     }
     /* 링크 스타일 추가 */
     a {
-        text-decoration: none;  /* 링크 밑줄 제거 */
+        text-decoration: none !important;  /* !important 추가 */
+        color: inherit !important;  /* 링크 색상 유지 */
+    }
+    /* 추가적인 테이블 헤더 스타일 */
+    thead th {
+        text-align: left !important;
+    }
+    .dataframe th {
+        text-align: left !important;
     }
     </style>
 """, unsafe_allow_html=True)
