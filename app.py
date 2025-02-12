@@ -26,6 +26,18 @@ st.markdown("""
         font-size: 0.9em;
         color: #888;
     }
+    /* 테이블 스타일 추가 */
+    table {
+        font-size: 0.9rem;  /* 테이블 내용 글자 크기를 0.9rem으로 변경 */
+    }
+    th {
+        font-size: 1em;  /* 헤더는 그대로 유지 */
+        text-align: left;  /* 헤더 왼쪽 정렬 */
+    }
+    /* 링크 스타일 추가 */
+    a {
+        text-decoration: none;  /* 링크 밑줄 제거 */
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -60,7 +72,21 @@ df = load_data(restaurants_url)
 if df.empty:
     st.stop()  # 데이터가 없으면 앱 실행 중지
 
-st.dataframe(df)
+# 데이터프레임을 HTML 형식으로 변환하여 링크 추가
+if not df.empty:
+    # 상호명과 장소에 링크 추가
+    df['상호명'] = df.apply(
+        lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if pd.notna(row['링크']) and row['링크'] else row['상호명'],
+        axis=1
+    )
+    df['장소'] = df.apply(
+        lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if pd.notna(row['링크']) and row['링크'] else row['장소'],
+        axis=1
+    )
+    
+    # '링크' 열을 제외하고 표시
+    display_columns = [col for col in df.columns if col != '링크']
+    st.markdown(df[display_columns].to_html(escape=False, index=False), unsafe_allow_html=True)
 
 # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
 # (기능은 그대로 유지)
