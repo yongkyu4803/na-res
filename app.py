@@ -28,7 +28,7 @@ st.markdown("""
     }
     /* 테이블 스타일 추가 */
     table {
-        font-size: 0.9rem;  /* 테이블 내용 글자 크기를 0.9rem으로 변경 */
+        font-size: 0.8rem;  /* 테이블 내용 글자 크기를 0.9rem으로 변경 */
     }
     th {
         font-size: 1em;  /* 헤더는 그대로 유지 */
