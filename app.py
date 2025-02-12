@@ -102,7 +102,11 @@ if not df.empty:
     else:
         display_columns = df.columns.tolist()
     
-    st.markdown(df[display_columns].to_html(escape=False, index=False), unsafe_allow_html=True)
+    st.markdown(df[display_columns].to_html(
+        escape=False, 
+        index=False,
+        justify='left'  # 테이블 정렬 방향 지정
+    ), unsafe_allow_html=True)
 
 # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
 # (기능은 그대로 유지)
