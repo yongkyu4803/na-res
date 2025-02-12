@@ -102,11 +102,54 @@ if not df.empty:
     else:
         display_columns = df.columns.tolist()
     
-    st.markdown(df[display_columns].to_html(
-        escape=False, 
-        index=False,
-        justify='left'  # 테이블 정렬 방향 지정
-    ), unsafe_allow_html=True)
+    # 커스텀 HTML 테이블 생성
+    html_table = """
+    <table class="custom-table">
+        <thead>
+            <tr>
+                {}
+            </tr>
+        </thead>
+        <tbody>
+            {}
+        </tbody>
+    </table>
+    """.format(
+        ''.join(f'<th>{col}</th>' for col in display_columns),
+        ''.join(
+            '<tr>{}</tr>'.format(
+                ''.join(f'<td>{row[col]}</td>' for col in display_columns)
+            ) for _, row in df.iterrows()
+        )
+    )
+    
+    # CSS 스타일 추가
+    st.markdown("""
+        <style>
+        .custom-table {
+            width: 100%;
+            font-size: 0.9rem;
+            border-collapse: collapse;
+        }
+        .custom-table th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid #ddd;
+        }
+        .custom-table td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .custom-table a {
+            text-decoration: none;
+            color: inherit;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # 테이블 표시
+    st.markdown(html_table, unsafe_allow_html=True)
 
 # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
 # (기능은 그대로 유지)
