@@ -27,23 +27,24 @@ st.markdown("""
         color: #888;
     }
     /* 테이블 스타일 추가 */
-    table {
-        font-size: 0.8rem !important;  /* !important 추가 */
+    .dataframe {
+        font-size: 0.9rem !important;
     }
-    th {
-        font-size: 0.9em !important;  /* !important 추가 */
-        text-align: left !important;  /* !important 추가 */
+    /* 테이블 헤더 스타일 */
+    .dataframe thead tr th {
+        text-align: left !important;
+        font-size: 1em !important;
     }
-    /* 링크 스타일 추가 */
-    a {
-        text-decoration: none !important;  /* !important 추가 */
-        color: inherit !important;  /* 링크 색상 유지 */
-    }
-    /* 추가적인 테이블 헤더 스타일 */
-    thead th {
+    .dataframe tbody tr th {
         text-align: left !important;
     }
-    .dataframe th {
+    /* 링크 스타일 추가 */
+    .dataframe a {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    /* 테이블 셀 스타일 */
+    .dataframe tbody tr td {
         text-align: left !important;
     }
     </style>
