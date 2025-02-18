@@ -259,49 +259,49 @@ if not df.empty:
                 '>🔍 검색 결과 ({} 건)</h4>
         """.format(len(filtered_df)), unsafe_allow_html=True)
     
-                # 검색 결과 테이블 스타일 추가
-                st.markdown("""
-                    <style>
-                    .search-table th {
-                        background-color: #4a6fa5 !important;
-                    }
-                    .search-table-container {
-                        background-color: white;
-                        padding: 10px;
-                        border-radius: 4px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                    }
-                    </style>
-                """, unsafe_allow_html=True)
-                    
-                    # 검색 결과 테이블 생성
-                    search_table = """
-                    <table class="custom-table search-table">
-                        <thead>
-                            <tr>
-                                {}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {}
-                        </tbody>
-                    </table>
-                    """.format(
-                        ''.join(f'<th>{col}</th>' for col in display_columns),
-                        ''.join(
-                            '<tr>{}</tr>'.format(
-                                ''.join(f'<td>{row[col]}</td>' for col in display_columns)
-                            ) for _, row in filtered_df.iterrows()
-                        )
-                    )
-                    
-                    search_container = f"""
-                        <div class="custom-table-container search-table-container">
-                            {search_table}
-                        </div>
-                        </div>
-                    """
-                    st.markdown(search_container, unsafe_allow_html=True)
+        # 검색 결과 테이블 스타일 추가
+        st.markdown("""
+            <style>
+            .search-table th {
+                background-color: #4a6fa5 !important;
+            }
+            .search-table-container {
+                background-color: white;
+                padding: 10px;
+                border-radius: 4px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
+        # 검색 결과 테이블 생성
+        search_table = """
+        <table class="custom-table search-table">
+            <thead>
+                <tr>
+                    {}
+                </tr>
+            </thead>
+            <tbody>
+                {}
+            </tbody>
+        </table>
+        """.format(
+            ''.join(f'<th>{col}</th>' for col in display_columns),
+            ''.join(
+                '<tr>{}</tr>'.format(
+                    ''.join(f'<td>{row[col]}</td>' for col in display_columns)
+                ) for _, row in filtered_df.iterrows()
+            )
+        )
+        
+        search_container = f"""
+            <div class="custom-table-container search-table-container">
+                {search_table}
+            </div>
+            </div>
+        """
+        st.markdown(search_container, unsafe_allow_html=True)
     else:
         st.write("")
     
