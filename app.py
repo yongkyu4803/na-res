@@ -143,7 +143,7 @@ if not df.empty:
         /* 열 너비 지정 */
         .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
             width: 10%;  /* 첫 번째 열 */
-            min-width: 65px;
+            min-width: 70px;
         }
         .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
             width: 25%;  /* 두 번째 열 */
