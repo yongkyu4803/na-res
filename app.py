@@ -122,7 +122,6 @@ if not df.empty:
             ) for _, row in df.iterrows()
         )
     )
-    
     # CSS 스타일 추가
     st.markdown("""
         <style>
@@ -132,18 +131,27 @@ if not df.empty:
             border-collapse: collapse;
         }
         .custom-table th {
-            text-align: left;
+            text-align: left !important;
             padding: 8px;
             border-bottom: 2px solid #ddd;
+            font-weight: bold;
+            white-space: nowrap;
         }
         .custom-table td {
-            text-align: left;
+            text-align: left !important;
             padding: 8px;
             border-bottom: 1px solid #ddd;
         }
         .custom-table a {
             text-decoration: none;
             color: inherit;
+        }
+        /* 추가된 스타일 */
+        table {
+            width: 100%;
+        }
+        th {
+            text-align: left !important;
         }
         </style>
     """, unsafe_allow_html=True)
