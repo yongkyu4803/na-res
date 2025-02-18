@@ -220,6 +220,17 @@ if not df.empty:
         th {
             text-align: center !important;  /* 이 부분도 수정 */
         }
+        /* 검색 결과 테이블 스타일 */
+        .search-table th {
+            background-color: #34495e !important;  /* 더 밝은 헤더 색상 */
+            color: white;
+            font-weight: bold;
+            border-bottom: 2px solid #2980b9;  /* 파란색 밑줄 */
+        }
+        .search-table-container {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* 그림자 효과 */
+            margin-top: 10px;
+        }
         </style>
     """, unsafe_allow_html=True)
     # CSS 스타일 추가 부분은 유지...
