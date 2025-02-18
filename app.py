@@ -174,8 +174,6 @@ if not df.empty:
             {html_table}
         </div>
         """
-        
-        # 테이블 표시 (이 부분만 남기고 다른 테이블 렌더링 코드는 제거)
         st.markdown(table_container, unsafe_allow_html=True)
     # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
     # (기능은 그대로 유지)
