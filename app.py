@@ -125,17 +125,28 @@ if not df.empty:
     # CSS 스타일 추가
     st.markdown("""
         <style>
+        .custom-table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
         .custom-table {
             width: 100%;
             font-size: 0.9rem;
             border-collapse: collapse;
         }
         .custom-table th {
+            position: sticky;
+            top: 0;
+            background-color: white;
             text-align: left !important;
             padding: 8px;
             border-bottom: 2px solid #ddd;
             font-weight: bold;
             white-space: nowrap;
+            z-index: 1;
         }
         .custom-table td {
             text-align: left !important;
@@ -158,7 +169,15 @@ if not df.empty:
     
     # 테이블 표시
     st.markdown(html_table, unsafe_allow_html=True)
-
+    # 테이블을 컨테이너로 감싸기
+    table_container = f"""
+    <div class="custom-table-container">
+        {html_table}
+    </div>
+    """
+    
+    # 테이블 표시
+    st.markdown(table_container, unsafe_allow_html=True)
 # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
 # (기능은 그대로 유지)
 search_term = st.text_input("검색어를 입력하세요 🔍")
