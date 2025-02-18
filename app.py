@@ -243,39 +243,36 @@ if not df.empty:
         )
         filtered_df = df[mask]
         
-        st.write(f"**검색 결과 ({len(filtered_df)}건):**")
-        
-        # 검색 결과를 HTML 테이블로 생성
-        if search_term:
+        # 검색 결과 헤더 추가
+        st.markdown("""
+            <div style='
+                background-color: #f0f4f8;
+                padding: 12px;
+                border-radius: 8px;
+                margin: 15px 0;
+                border-left: 4px solid #2c3e50;
+            '>
+                <h4 style='
+                    color: #2c3e50;
+                    margin: 0 0 10px 0;
+                    font-size: 1rem;
+                '>🔍 검색 결과 ({} 건)</h4>
+        """.format(len(filtered_df)), unsafe_allow_html=True)
+    
+                # 검색 결과 테이블 스타일 추가
                 st.markdown("""
-                    <div style='
-                        background-color: #f0f4f8;
-                        padding: 12px;
-                        border-radius: 8px;
-                        margin: 15px 0;
-                        border-left: 4px solid #2c3e50;
-                    '>
-                        <h4 style='
-                            color: #2c3e50;
-                            margin: 0 0 10px 0;
-                            font-size: 1rem;
-                        '>🔍 검색 결과 ({} 건)</h4>
-                """.format(len(filtered_df)), unsafe_allow_html=True)
-        
-                    # 검색 결과 테이블 스타일 추가
-                    st.markdown("""
-                        <style>
-                        .search-table th {
-                            background-color: #4a6fa5 !important;
-                        }
-                        .search-table-container {
-                            background-color: white;
-                            padding: 10px;
-                            border-radius: 4px;
-                            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                        }
-                        </style>
-                    """, unsafe_allow_html=True)
+                    <style>
+                    .search-table th {
+                        background-color: #4a6fa5 !important;
+                    }
+                    .search-table-container {
+                        background-color: white;
+                        padding: 10px;
+                        border-radius: 4px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    }
+                    </style>
+                """, unsafe_allow_html=True)
                     
                     # 검색 결과 테이블 생성
                     search_table = """
