@@ -242,7 +242,29 @@ if not df.empty:
             axis=1
         )
         filtered_df = df[mask]
-        # 검색 결과 헤더 추가
+        
+        # 검색 결과 테이블 생성
+        search_table = """
+        <table class="custom-table search-table">
+            <thead>
+                <tr>
+                    {}
+                </tr>
+            </thead>
+            <tbody>
+                {}
+            </tbody>
+        </table>
+        """.format(
+            ''.join(f'<th>{col}</th>' for col in display_columns),
+            ''.join(
+                '<tr>{}</tr>'.format(
+                    ''.join(f'<td>{row[col]}</td>' for col in display_columns)
+                ) for _, row in filtered_df.iterrows()
+            )
+        )
+        
+        # 검색 결과 헤더와 테이블 표시
         st.markdown("""
             <div style='
                 background-color: #f0f4f8;
