@@ -277,7 +277,7 @@ if not df.empty:
         # 검색 결과 헤더와 테이블 표시
         st.markdown("""
             <div style='
-                background-color: #34495e;
+                background-color: #faf6e3;
                 padding: 12px;
                 border-radius: 8px;
                 margin: 15px 0;
