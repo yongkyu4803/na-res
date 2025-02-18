@@ -158,26 +158,27 @@ if not df.empty:
             min-width: 70px;
         }
         /* 특정 열의 폰트 크기 조정 */
-        .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
-            font-size: 0.7rem;  /* 첫 번째 열 */
+        .custom-table td:nth-child(1) {
+            font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
         }
-        .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
-            font-size: 0.9rem;  /* 두 번째 열 */
+        .custom-table td:nth-child(2) {
+            font-size: 0.9rem;  /* 두 번째 열 (데이터 부분만) */
         }
-        .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
-            font-size: 0.8rem;  /* 세 번째 열 */
+        .custom-table td:nth-child(3) {
+            font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
         }
         .custom-table th {
             position: sticky;
             top: 0;
             background-color: #2c3e50;  /* 진한 남색 배경 */
             color: white;  /* 텍스트 색상 흰색으로 */
-            text-align: left !important;
+            text-align: center !important;  /* 헤더 텍스트 가운데 정렬 */
             padding: 8px;
             border-bottom: 2px solid #ddd;
             font-weight: bold;
             white-space: nowrap;
             z-index: 1;
+            font-size: 0.85rem;  /* 모든 헤더의 글자 크기를 동일하게 설정 */
         }
         .custom-table td {
             text-align: left !important;
@@ -193,7 +194,7 @@ if not df.empty:
             width: 100%;
         }
         th {
-            text-align: left !important;
+            text-align: center !important;  /* 이 부분도 수정 */
         }
         </style>
     """, unsafe_allow_html=True)
