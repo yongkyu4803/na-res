@@ -299,7 +299,6 @@ if not df.empty:
             <div class="custom-table-container search-table-container">
                 {search_table}
             </div>
-            </div>
         """
         st.markdown(search_container, unsafe_allow_html=True)
     else:
