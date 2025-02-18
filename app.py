@@ -65,7 +65,7 @@ st.markdown("""
         margin: 10px 0;
         border-radius: 4px;
     '>
-        📝 <i>2025년 2월 18일 개선. 일부 식당 지도 링크 연결(계속 작업중)</i>
+        📝 <i>2025년 2월 18일 개선. 일부 식당 지도 링크 연결(상호명 또는 주소를 클릭하세요)</i>
     </div>
 """, unsafe_allow_html=True)
 
