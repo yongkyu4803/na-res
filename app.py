@@ -220,10 +220,178 @@ if not df.empty:
         th {
             text-align: center !important;  /* 이 부분도 수정 */
         }
-        </style>
-    """, unsafe_allow_html=True)
-    # CSS 스타일 추가 부분은 유지...
-    
+        # CSS 스타일 추가
+            st.markdown("""
+                <style>
+                .custom-table-container {
+                    max-height: 500px;
+                    overflow-y: auto;
+                    margin-bottom: 20px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+                .custom-table {
+                    width: 100%;
+                    font-size: 0.8rem;
+                    border-collapse: collapse;
+                }
+                /* 열 너비 지정 */
+                .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
+                    width: 10%;  /* 첫 번째 열 */
+                    min-width: 75px;
+                }
+                .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
+                    width: 17%;  /* 두 번째 열 */
+                    min-width: 80px;
+                }
+                .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
+                    width: 25%;  /* 세 번째 열 */
+                    min-width: 100px;
+                }
+                .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
+                    width: 15%;  /* 네네 번째 열 */
+                    min-width: 70px;
+                }
+                /* 특정 열의 폰트 크기 조정 */
+                .custom-table td:nth-child(1) {
+                    font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
+                }
+                .custom-table td:nth-child(2) {
+                    font-size: 0.8rem;  /* 두 번째 열 (데이터 부분만) */
+                }
+                .custom-table td:nth-child(3) {
+                    font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
+                }
+                .custom-table th {
+                    position: sticky;
+                    top: 0;
+                    background-color: #2c3e50;  /* 진한 남색 배경 */
+                    color: white;  /* 텍스트 색상 흰색으로 */
+                    text-align: center !important;  /* 헤더 텍스트 가운데 정렬 */
+                    padding: 8px;
+                    border-bottom: 2px solid #ddd;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    z-index: 1;
+                    font-size: 0.85rem;  /* 모든 헤더의 글자 크기를 동일하게 설정 */
+                }
+                .custom-table td {
+                    text-align: left !important;
+                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
+                    border-bottom: 2px solid #ddd;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    z-index: 1;
+                    font-size: 0.85rem;
+                }
+                .custom-table td {
+                    text-align: left !important;
+                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
+                    border-bottom: 1px solid #ddd;
+                }
+                .custom-table a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+                /* 추가된 스타일 */
+                table {
+                    width: 100%;
+                }
+                th {
+                    text-align: center !important;  /* 이 부분도 수정 */
+                }
+                .custom-table-container {
+                    max-height: 500px;
+                    overflow-y: auto;
+                    margin-bottom: 20px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+                .custom-table {
+                    width: 100%;
+                    font-size: 0.8rem;
+                    border-collapse: collapse;
+                }
+                /* 열 너비 지정 */
+                .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
+                    width: 10%;  /* 첫 번째 열 */
+                    min-width: 75px;
+                }
+                .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
+                    width: 17%;  /* 두 번째 열 */
+                    min-width: 80px;
+                }
+                .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
+                    width: 25%;  /* 세 번째 열 */
+                    min-width: 100px;
+                }
+                .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
+                    width: 15%;  /* 네네 번째 열 */
+                    min-width: 70px;
+                }
+                /* 특정 열의 폰트 크기 조정 */
+                .custom-table td:nth-child(1) {
+                    font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
+                }
+                .custom-table td:nth-child(2) {
+                    font-size: 0.8rem;  /* 두 번째 열 (데이터 부분만) */
+                }
+                .custom-table td:nth-child(3) {
+                    font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
+                }
+                .custom-table th {
+                    position: sticky;
+                    top: 0;
+                    background-color: #2c3e50;  /* 진한 남색 배경 */
+                    color: white;  /* 텍스트 색상 흰색으로 */
+                    text-align: center !important;  /* 헤더 텍스트 가운데 정렬 */
+                    padding: 8px;
+                    border-bottom: 2px solid #ddd;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    z-index: 1;
+                    font-size: 0.85rem;  /* 모든 헤더의 글자 크기를 동일하게 설정 */
+                }
+                .custom-table td {
+                    text-align: left !important;
+                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
+                    border-bottom: 2px solid #ddd;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    z-index: 1;
+                    font-size: 0.85rem;
+                }
+                .custom-table td {
+                    text-align: left !important;
+                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
+                    border-bottom: 1px solid #ddd;
+                }
+                .custom-table a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+                /* 추가된 스타일 */
+                table {
+                    width: 100%;
+                }
+                th {
+                    text-align: center !important;  /* 이 부분도 수정 */
+                }
+                .search-table th {
+                    background-color: #34495e !important;  /* 더 밝은 파란색 계열 */
+                }
+                .search-table td {
+                    background-color: #f8f9fa;  /* 연한 회색 배경 */
+                }
+                .search-table tr:hover td {
+                    background-color: #e9ecef;  /* 호버 효과 */
+                }
+                .search-table-container {
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* 그림자 효과 */
+                    border: none !important;
+                }
+                </style>
+            """, unsafe_allow_html=True)
         # 테이블을 컨테이너로 감싸서 한 번만 렌더링
     table_container = f"""
     <div class="custom-table-container">
