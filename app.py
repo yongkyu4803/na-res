@@ -157,33 +157,47 @@ if not df.empty:
         }
         /* 열 너비 지정 */
         .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
-            width: 10%;
+            width: 10%;  /* 첫 번째 열 */
             min-width: 75px;
         }
         .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
-            width: 17%;
+            width: 17%;  /* 두 번째 열 */
             min-width: 80px;
         }
         .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
-            width: 25%;
+            width: 25%;  /* 세 번째 열 */
             min-width: 100px;
         }
         .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
-            width: 15%;
+            width: 15%;  /* 네네 번째 열 */
             min-width: 70px;
         }
         /* 특정 열의 폰트 크기 조정 */
-        .custom-table td:nth-child(1) { font-size: 0.7rem; }
-        .custom-table td:nth-child(2) { font-size: 0.8rem; }
-        .custom-table td:nth-child(3) { font-size: 0.8rem; }
-        
+        .custom-table td:nth-child(1) {
+            font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
+        }
+        .custom-table td:nth-child(2) {
+            font-size: 0.8rem;  /* 두 번째 열 (데이터 부분만) */
+        }
+        .custom-table td:nth-child(3) {
+            font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
+        }
         .custom-table th {
             position: sticky;
             top: 0;
-            background-color: #2c3e50;
-            color: white;
-            text-align: center !important;
+            background-color: #2c3e50;  /* 진한 남색 배경 */
+            color: white;  /* 텍스트 색상 흰색으로 */
+            text-align: center !important;  /* 헤더 텍스트 가운데 정렬 */
             padding: 8px;
+            border-bottom: 2px solid #ddd;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 1;
+            font-size: 0.85rem;  /* 모든 헤더의 글자 크기를 동일하게 설정 */
+        }
+        .custom-table td {
+            text-align: left !important;
+            padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
             border-bottom: 2px solid #ddd;
             font-weight: bold;
             white-space: nowrap;
@@ -192,20 +206,19 @@ if not df.empty:
         }
         .custom-table td {
             text-align: left !important;
-            padding: 4px 8px;
+            padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
             border-bottom: 1px solid #ddd;
-            font-size: 0.85rem;
         }
         .custom-table a {
             text-decoration: none;
             color: inherit;
         }
-        /* 검색 결과 테이블 스타일 */
-        .search-table th {
-            background-color: #34495e !important;
+        /* 추가된 스타일 */
+        table {
+            width: 100%;
         }
-        .search-table-container {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        th {
+            text-align: center !important;  /* 이 부분도 수정 */
         }
         </style>
     """, unsafe_allow_html=True)
