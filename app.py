@@ -169,12 +169,12 @@ if not df.empty:
     # CSS 스타일 추가 부분은 유지...
     
         # 테이블을 컨테이너로 감싸서 한 번만 렌더링
-        table_container = f"""
-        <div class="custom-table-container">
-            {html_table}
-        </div>
-        """
-        st.markdown(table_container, unsafe_allow_html=True)
+    table_container = f"""
+    <div class="custom-table-container">
+        {html_table}
+    </div>
+    """
+    st.markdown(table_container, unsafe_allow_html=True)
     # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
     # (기능은 그대로 유지)
     search_term = st.text_input("검색어를 입력하세요 🔍")
