@@ -263,7 +263,6 @@ if not df.empty:
                 ) for _, row in filtered_df.iterrows()
             )
         )
-        
         # 검색 결과 헤더와 테이블 표시
         st.markdown("""
             <div style='
@@ -277,12 +276,12 @@ if not df.empty:
                     color: #2c3e50;
                     margin: 0 0 10px 0;
                     font-size: 1rem;
-                '>🔍 검색 결과 ({} 건)</h4>
+                '>🔍 검색 결과 ({len(filtered_df)} 건)</h4>
                 <div class="custom-table-container search-table-container">
-                    {}
+                    {search_table}
                 </div>
             </div>
-        """.format(len(filtered_df), search_table), unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     else:
         st.write("")
     
