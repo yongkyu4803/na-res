@@ -54,6 +54,21 @@ st.markdown("""
 st.markdown("<div class='title'>국회앞 식당정보 🍽️</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>맛있는 한 끼, 즐거운 하루 😊</div>", unsafe_allow_html=True)
 
+# 관리자 메모 추가
+st.markdown("""
+    <div style='
+        text-align: center;
+        font-size: 0.8em;
+        color: #666;
+        background-color: #f8f9fa;
+        padding: 8px;
+        margin: 10px 0;
+        border-radius: 4px;
+    '>
+        📝 <i>2025년 2월 18일 개선. 일부 식당 지도 링크 연결(계속 작업중)</i>
+    </div>
+""", unsafe_allow_html=True)
+
 # 구글 시트 URL 구성 부분 수정
 base_url = "https://docs.google.com/spreadsheets/d/"
 sheet_id = "12xZfClkzATbByAZDYtM5KV2THzVvg2cV3KvVAZ621PQ"
