@@ -244,7 +244,34 @@ if not df.empty:
         filtered_df = df[mask]
         
         st.write(f"**검색 결과 ({len(filtered_df)}건):**")
-        st.dataframe(filtered_df)
+        
+        # 검색 결과를 HTML 테이블로 생성
+        search_table = """
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    {}
+                </tr>
+            </thead>
+            <tbody>
+                {}
+            </tbody>
+        </table>
+        """.format(
+            ''.join(f'<th>{col}</th>' for col in display_columns),
+            ''.join(
+                '<tr>{}</tr>'.format(
+                    ''.join(f'<td>{row[col]}</td>' for col in display_columns)
+                ) for _, row in filtered_df.iterrows()
+            )
+        )
+        
+        search_container = f"""
+        <div class="custom-table-container">
+            {search_table}
+        </div>
+        """
+        st.markdown(search_container, unsafe_allow_html=True)
     else:
         st.write("")
     
