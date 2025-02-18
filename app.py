@@ -146,11 +146,11 @@ if not df.empty:
             min-width: 75px;
         }
         .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
-            width: 25%;  /* 두 번째 열 */
+            width: 20%;  /* 두 번째 열 */
             min-width: 80px;
         }
         .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
-            width: 35%;  /* 세 번째 열 */
+            width: 30%;  /* 세 번째 열 */
             min-width: 100px;
         }
         /* 특정 열의 폰트 크기 조정 */
