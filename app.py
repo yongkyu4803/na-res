@@ -82,32 +82,23 @@ if df.empty:
     st.stop()  # 데이터가 없으면 앱 실행 중지
 
 # 데이터프레임을 HTML 형식으로 변환하여 링크 추가
-    if not df.empty:
-        # 열 이름 공백 제거
-        df.columns = df.columns.str.strip()
-        
-        # NaN 값을 빈 문자열로 변환
-        df = df.fillna('')
-        
-        # 상호명과 장소에 링크 추가
-        if '링크' in df.columns:
-            df['상호명'] = df.apply(
-                lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if row['링크'] else row['상호명'],
-                axis=1
-            )
-            df['장소'] = df.apply(
-                lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if row['링크'] else row['장소'],
-                axis=1
-            )
-        else:
-            df['상호명'] = df.apply(
-                lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if pd.notna(row['링크']) and row['링크'] else row['상호명'],
-                axis=1
-            )
-            df['장소'] = df.apply(
-                lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if pd.notna(row['링크']) and row['링크'] else row['장소'],
-                axis=1
-            )
+if not df.empty:
+    # 열 이름 공백 제거
+    df.columns = df.columns.str.strip()
+    
+    # NaN 값을 빈 문자열로 변환
+    df = df.fillna('')
+    
+    # 상호명과 장소에 링크 추가
+    if '링크' in df.columns:
+        df['상호명'] = df.apply(
+            lambda row: f"<a href='{row['링크']}'>{row['상호명']}</a>" if row['링크'] else row['상호명'],
+            axis=1
+        )
+        df['장소'] = df.apply(
+            lambda row: f"<a href='{row['링크']}'>{row['장소']}</a>" if row['링크'] else row['장소'],
+            axis=1
+        )
         
         # '링크' 열을 제외하고 표시
         display_columns = [col for col in df.columns if col != '링크']
