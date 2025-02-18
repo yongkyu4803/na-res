@@ -137,6 +137,16 @@ if not df.empty:
             font-size: 0.8rem;
             border-collapse: collapse;
         }
+        /* 특정 열의 폰트 크기 조정 */
+        .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
+            font-size: 0.7rem;  /* 첫 번째 열 */
+        }
+        .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
+            font-size: 0.9rem;  /* 두 번째 열 */
+        }
+        .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
+            font-size: 0.8rem;  /* 세 번째 열 */
+        }
         .custom-table th {
             position: sticky;
             top: 0;
