@@ -182,7 +182,16 @@ if not df.empty:
         }
         .custom-table td {
             text-align: left !important;
-            padding: 8px;
+            padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
+            border-bottom: 2px solid #ddd;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 1;
+            font-size: 0.85rem;
+        }
+        .custom-table td {
+            text-align: left !important;
+            padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
             border-bottom: 1px solid #ddd;
         }
         .custom-table a {
