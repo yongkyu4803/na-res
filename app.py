@@ -154,8 +154,8 @@ if not df.empty:
             min-width: 100px;
         }
         .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
-            width: 20%;  /* 세 번째 열 */
-            min-width: 80px;
+            width: 15%;  /* 세 번째 열 */
+            min-width: 70px;
         }
         /* 특정 열의 폰트 크기 조정 */
         .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
