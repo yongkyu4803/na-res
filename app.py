@@ -162,7 +162,7 @@ if not df.empty:
             font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
         }
         .custom-table td:nth-child(2) {
-            font-size: 0.9rem;  /* 두 번째 열 (데이터 부분만) */
+            font-size: 0.8rem;  /* 두 번째 열 (데이터 부분만) */
         }
         .custom-table td:nth-child(3) {
             font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
