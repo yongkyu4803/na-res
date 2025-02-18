@@ -134,7 +134,7 @@ if not df.empty:
         }
         .custom-table {
             width: 100%;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border-collapse: collapse;
         }
         .custom-table th {
