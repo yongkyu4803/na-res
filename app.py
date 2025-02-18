@@ -279,8 +279,6 @@ if not df.empty:
                 '>🔍 검색 결과 ({} 건)</h4>
                 <div class="custom-table-container search-table-container">
                     {}
-                </div>
-            </div>
         """.format(len(filtered_df), search_table), unsafe_allow_html=True)
     else:
         st.write("")
