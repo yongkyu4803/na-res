@@ -166,75 +166,74 @@ if not df.empty:
         }
         </style>
     """, unsafe_allow_html=True)
+    # CSS 스타일 추가 부분은 유지...
     
-    # 테이블 표시
-    st.markdown(html_table, unsafe_allow_html=True)
-    # 테이블을 컨테이너로 감싸기
-    table_container = f"""
-    <div class="custom-table-container">
-        {html_table}
-    </div>
-    """
+        # 테이블을 컨테이너로 감싸서 한 번만 렌더링
+        table_container = f"""
+        <div class="custom-table-container">
+            {html_table}
+        </div>
+        """
+        
+        # 테이블 표시 (이 부분만 남기고 다른 테이블 렌더링 코드는 제거)
+        st.markdown(table_container, unsafe_allow_html=True)
+    # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
+    # (기능은 그대로 유지)
+    search_term = st.text_input("검색어를 입력하세요 🔍")
     
-    # 테이블 표시
-    st.markdown(table_container, unsafe_allow_html=True)
-# 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
-# (기능은 그대로 유지)
-search_term = st.text_input("검색어를 입력하세요 🔍")
-
-if search_term:
-    # 모든 열의 값을 문자열로 변환한 후, 검색어가 포함되어 있는지 확인
-    mask = df.apply(
-        lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(),
-        axis=1
-    )
-    filtered_df = df[mask]
-    
-    st.write(f"**검색 결과 ({len(filtered_df)}건):**")
-    st.dataframe(filtered_df)
-else:
-    st.write("")
-
-# 피드백 섹션
-st.markdown("---")
-st.markdown("### 📝 피드백을 남겨주세요!")
-
-# SheetManager 인스턴스 생성
-sheet_manager = SheetManager()
-
-with st.form("feedback_form", clear_on_submit=True):
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        rating = st.slider("전반적인 만족도", 1, 5, 3)
-        user_name = st.text_input("이름 (선택사항)")
-    
-    with col2:
-        feedback_type = st.selectbox(
-            "피드백 유형",
-            ["일반 의견", "새로운 식당 제보", "정보 수정 요청", "기능 개선 제안"]
+    if search_term:
+        # 모든 열의 값을 문자열로 변환한 후, 검색어가 포함되어 있는지 확인
+        mask = df.apply(
+            lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(),
+            axis=1
         )
+        filtered_df = df[mask]
+        
+        st.write(f"**검색 결과 ({len(filtered_df)}건):**")
+        st.dataframe(filtered_df)
+    else:
+        st.write("")
     
-    feedback_text = st.text_area("상세 의견을 적어주세요")
+    # 피드백 섹션
+    st.markdown("---")
+    st.markdown("### 📝 피드백을 남겨주세요!")
     
-    submitted = st.form_submit_button("피드백 제출")
+    # SheetManager 인스턴스 생성
+    sheet_manager = SheetManager()
     
-    if submitted and feedback_text:
-        success, message = sheet_manager.submit_feedback(
-            user_name,
-            rating,
-            feedback_type,
-            feedback_text
-        )
-        if success:
-            st.success(message)
-            time.sleep(3)  # 3초 동안 성공 메시지 표시
-            st.rerun()
-        else:
-            st.error(message)
-    elif submitted:
-        st.warning("피드백 내용을 입력해주세요.")
-
-# 푸터 추가 (푸터 메시지는 영어, 이모지 추가)
-st.markdown("---")
-st.markdown("<p class='footer'>Made by GQ 💡</p>", unsafe_allow_html=True)
+    with st.form("feedback_form", clear_on_submit=True):
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            rating = st.slider("전반적인 만족도", 1, 5, 3)
+            user_name = st.text_input("이름 (선택사항)")
+        
+        with col2:
+            feedback_type = st.selectbox(
+                "피드백 유형",
+                ["일반 의견", "새로운 식당 제보", "정보 수정 요청", "기능 개선 제안"]
+            )
+        
+        feedback_text = st.text_area("상세 의견을 적어주세요")
+        
+        submitted = st.form_submit_button("피드백 제출")
+        
+        if submitted and feedback_text:
+            success, message = sheet_manager.submit_feedback(
+                user_name,
+                rating,
+                feedback_type,
+                feedback_text
+            )
+            if success:
+                st.success(message)
+                time.sleep(3)  # 3초 동안 성공 메시지 표시
+                st.rerun()
+            else:
+                st.error(message)
+        elif submitted:
+            st.warning("피드백 내용을 입력해주세요.")
+    
+    # 푸터 추가 (푸터 메시지는 영어, 이모지 추가)
+    st.markdown("---")
+    st.markdown("<p class='footer'>Made by GQ 💡</p>", unsafe_allow_html=True)
