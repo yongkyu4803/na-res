@@ -170,7 +170,8 @@ if not df.empty:
         .custom-table th {
             position: sticky;
             top: 0;
-            background-color: white;
+            background-color: #2c3e50;  /* 진한 남색 배경 */
+            color: white;  /* 텍스트 색상 흰색으로 */
             text-align: left !important;
             padding: 8px;
             border-bottom: 2px solid #ddd;
