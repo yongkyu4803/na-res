@@ -220,188 +220,109 @@ if not df.empty:
         th {
             text-align: center !important;  /* 이 부분도 수정 */
         }
-        # CSS 스타일 추가
-            st.markdown("""
-                <style>
-                .custom-table-container {
-                    max-height: 500px;
-                    overflow-y: auto;
-                    margin-bottom: 20px;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                }
-                .custom-table {
-                    width: 100%;
-                    font-size: 0.8rem;
-                    border-collapse: collapse;
-                }
-                /* 열 너비 지정 */
-                .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
-                    width: 10%;  /* 첫 번째 열 */
-                    min-width: 75px;
-                }
-                .custom-table td:nth-child(2), .custom-table th:nth-child(2) {
-                    width: 17%;  /* 두 번째 열 */
-                    min-width: 80px;
-                }
-                .custom-table td:nth-child(3), .custom-table th:nth-child(3) {
-                    width: 25%;  /* 세 번째 열 */
-                    min-width: 100px;
-                }
-                .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
-                    width: 15%;  /* 네네 번째 열 */
-                    min-width: 70px;
-                }
-                /* 특정 열의 폰트 크기 조정 */
-                .custom-table td:nth-child(1) {
-                    font-size: 0.7rem;  /* 첫 번째 열 (데이터 부분만) */
-                }
-                .custom-table td:nth-child(2) {
-                    font-size: 0.8rem;  /* 두 번째 열 (데이터 부분만) */
-                }
-                .custom-table td:nth-child(3) {
-                    font-size: 0.8rem;  /* 세 번째 열 (데이터 부분만) */
-                }
-                .custom-table th {
-                    position: sticky;
-                    top: 0;
-                    background-color: #2c3e50;  /* 진한 남색 배경 */
-                    color: white;  /* 텍스트 색상 흰색으로 */
-                    text-align: center !important;  /* 헤더 텍스트 가운데 정렬 */
-                    padding: 8px;
-                    border-bottom: 2px solid #ddd;
-                    font-weight: bold;
-                    white-space: nowrap;
-                    z-index: 1;
-                    font-size: 0.85rem;  /* 모든 헤더의 글자 크기를 동일하게 설정 */
-                }
-                .custom-table td {
-                    text-align: left !important;
-                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
-                    border-bottom: 2px solid #ddd;
-                    font-weight: bold;
-                    white-space: nowrap;
-                    z-index: 1;
-                    font-size: 0.85rem;
-                }
-                .custom-table td {
-                    text-align: left !important;
-                    padding: 4px 8px;  /* 상하 패딩 4px로 축소 */
-                    border-bottom: 1px solid #ddd;
-                }
-                .custom-table a {
-                    text-decoration: none;
-                    color: inherit;
-                }
-                /* 추가된 스타일 */
-                table {
-                    width: 100%;
-                }
-                th {
-                    text-align: center !important;  /* 이 부분도 수정 */
-                }
-                </style>
-            """, unsafe_allow_html=True)
-        # CSS 스타일 추가 부분은 유지...
-            # 테이블을 컨테이너로 감싸서 한 번만 렌더링
-        table_container = f"""
-        <div class="custom-table-container">
-            {html_table}
-        </div>
-        """
-        st.markdown(table_container, unsafe_allow_html=True)
-        # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
-        # (기능은 그대로 유지)
-        search_term = st.text_input("검색어를 입력하세요 🔍")
+        </style>
+    """, unsafe_allow_html=True)
+    # CSS 스타일 추가 부분은 유지...
+    
+        # 테이블을 컨테이너로 감싸서 한 번만 렌더링
+    table_container = f"""
+    <div class="custom-table-container">
+        {html_table}
+    </div>
+    """
+    st.markdown(table_container, unsafe_allow_html=True)
+    # 검색 기능 구현: 모든 열에서 검색어가 포함된 행 반환 (부분 일치)
+    # (기능은 그대로 유지)
+    search_term = st.text_input("검색어를 입력하세요 🔍")
+    
+    if search_term:
+        # 모든 열의 값을 문자열로 변환한 후, 검색어가 포함되어 있는지 확인
+        mask = df.apply(
+            lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(),
+            axis=1
+        )
+        filtered_df = df[mask]
         
-        if search_term:
-            # 모든 열의 값을 문자열로 변환한 후, 검색어가 포함되어 있는지 확인
-            mask = df.apply(
-                lambda row: row.astype(str).str.contains(search_term, case=False, na=False).any(),
-                axis=1
-            )
-            filtered_df = df[mask]
-            
-            # 검색 결과 테이블 생성
-            search_table = """
-            <table class="custom-table search-table">
-                <thead>
-                    <tr>
-                        {}
-                    </tr>
-                </thead>
-                <tbody>
+        # 검색 결과 테이블 생성
+        search_table = """
+        <table class="custom-table search-table">
+            <thead>
+                <tr>
                     {}
-                </tbody>
-            </table>
-            """.format(
-                ''.join(f'<th>{col}</th>' for col in display_columns),
-                ''.join(
-                    '<tr>{}</tr>'.format(
-                        ''.join(f'<td>{row[col]}</td>' for col in display_columns)
-                    ) for _, row in filtered_df.iterrows()
-                )
+                </tr>
+            </thead>
+            <tbody>
+                {}
+            </tbody>
+        </table>
+        """.format(
+            ''.join(f'<th>{col}</th>' for col in display_columns),
+            ''.join(
+                '<tr>{}</tr>'.format(
+                    ''.join(f'<td>{row[col]}</td>' for col in display_columns)
+                ) for _, row in filtered_df.iterrows()
             )
-            # 검색 결과 헤더와 테이블 표시
-            st.markdown("""
-                <div style='
-                    background-color: #f0f4f8;
-                    padding: 12px;
-                    border-radius: 8px;
-                    margin: 15px 0;
-                    border-left: 4px solid #2c3e50;
-                '>
-                    <h4 style='
-                        color: #2c3e50;
-                        margin: 0 0 10px 0;
-                        font-size: 1rem;
-                    '>🔍 검색 결과 ({} 건)</h4>
-                    <div class="custom-table-container search-table-container">
-                        {}
-            """.format(len(filtered_df), search_table), unsafe_allow_html=True)
-        else:
-            st.write("")
+        )
+        # 검색 결과 헤더와 테이블 표시
+        st.markdown("""
+            <div style='
+                background-color: #f0f4f8;
+                padding: 12px;
+                border-radius: 8px;
+                margin: 15px 0;
+                border-left: 4px solid #2c3e50;
+            '>
+                <h4 style='
+                    color: #2c3e50;
+                    margin: 0 0 10px 0;
+                    font-size: 1rem;
+                '>🔍 검색 결과 ({} 건)</h4>
+                <div class="custom-table-container search-table-container">
+                    {}
+        """.format(len(filtered_df), search_table), unsafe_allow_html=True)
+    else:
+        st.write("")
+    
+    # 피드백 섹션
+    st.markdown("---")
+    st.markdown("### 📝 피드백을 남겨주세요!")
+    
+    # SheetManager 인스턴스 생성
+    sheet_manager = SheetManager()
+    
+    with st.form("feedback_form", clear_on_submit=True):
+        col1, col2 = st.columns(2)
         
-        # 피드백 섹션
-        st.markdown("---")
-        st.markdown("### 📝 피드백을 남겨주세요!")
+        with col1:
+            rating = st.slider("전반적인 만족도", 1, 5, 3)
+            user_name = st.text_input("이름 (선택사항)")
         
-        # SheetManager 인스턴스 생성
-        sheet_manager = SheetManager()
+        with col2:
+            feedback_type = st.selectbox(
+                "피드백 유형",
+                ["일반 의견", "새로운 식당 제보", "정보 수정 요청", "기능 개선 제안"]
+            )
         
-        with st.form("feedback_form", clear_on_submit=True):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                rating = st.slider("전반적인 만족도", 1, 5, 3)
-                user_name = st.text_input("이름 (선택사항)")
-            
-            with col2:
-                feedback_type = st.selectbox(
-                    "피드백 유형",
-                    ["일반 의견", "새로운 식당 제보", "정보 수정 요청", "기능 개선 제안"]
-                )
-            
-            feedback_text = st.text_area("상세 의견을 적어주세요")
-            
-            submitted = st.form_submit_button("피드백 제출")
-            
-            if submitted and feedback_text:
-                success, message = sheet_manager.submit_feedback(
-                    user_name,
-                    rating,
-                    feedback_type,
-                    feedback_text
-                )
-                if success:
-                    st.success(message)
-                    time.sleep(3)  # 3초 동안 성공 메시지 표시
-                    st.rerun()
-                else:
-                    st.error(message)
-            elif submitted:
-                st.warning("피드백 내용을 입력해주세요.")
+        feedback_text = st.text_area("상세 의견을 적어주세요")
         
-        # 푸터 추가 (푸터 메시지는 영어, 이모지 추가)
-        st.markdown("---")
-        st.markdown("<p class='footer'>Made by GQ 💡</p>", unsafe_allow_html=True)
+        submitted = st.form_submit_button("피드백 제출")
+        
+        if submitted and feedback_text:
+            success, message = sheet_manager.submit_feedback(
+                user_name,
+                rating,
+                feedback_type,
+                feedback_text
+            )
+            if success:
+                st.success(message)
+                time.sleep(3)  # 3초 동안 성공 메시지 표시
+                st.rerun()
+            else:
+                st.error(message)
+        elif submitted:
+            st.warning("피드백 내용을 입력해주세요.")
+    
+    # 푸터 추가 (푸터 메시지는 영어, 이모지 추가)
+    st.markdown("---")
+    st.markdown("<p class='footer'>Made by GQ 💡</p>", unsafe_allow_html=True)
