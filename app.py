@@ -153,6 +153,10 @@ if not df.empty:
             width: 30%;  /* 세 번째 열 */
             min-width: 100px;
         }
+        .custom-table td:nth-child(4), .custom-table th:nth-child(4) {
+            width: 25%;  /* 세 번째 열 */
+            min-width: 100px;
+        }
         /* 특정 열의 폰트 크기 조정 */
         .custom-table td:nth-child(1), .custom-table th:nth-child(1) {
             font-size: 0.7rem;  /* 첫 번째 열 */
